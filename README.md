@@ -137,3 +137,14 @@ Roadmap
 [ ] Use stricter answer matching and exclude "cannot answer" questions from the citation metric (Maaz)
 [ ] Iterate on prompt v3 using the failures in results_v3.csv (Aman)
 [ ] Add output filtering, authentication and rate limiting beyond prompt-level defences
+
+Git commands:
+
+git clone https://github.com/anderianisar/LLM-and-Prompt-Engineering.git
+cd LLM-and-Prompt-Engineering
+
+# copy your downloaded folders in here, then:
+git add prompts/ evals/
+git commit -m "Add prompt v3 and eval results"
+git push origin main
+
