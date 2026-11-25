@@ -140,7 +140,7 @@ Roadmap
 
 Git commands:
 
-git clone https://github.com/anderianisar/LLM-and-Prompt-Engineering.git
+git clone https://github.com/ateeq882-hue/LLM_Prompt_Engineering_Week-9
 cd LLM-and-Prompt-Engineering
 
 # copy your downloaded folders in here, then:
