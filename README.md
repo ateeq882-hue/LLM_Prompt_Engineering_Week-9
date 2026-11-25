@@ -209,10 +209,15 @@ Team answers from the notebook. Each member adds their own individual answers be
 6. **Tags and canary:** tags separate user text (data) from instructions; a canary is a secret string that reveals a prompt leak if it appears in an output.
 
 ### Aman
-*(add your answers)*
+Part 1: connected to Gemini (gemini-3.1-flash-lite) with the key in a Kaggle secret, and wrote chat() with up to 8 attempts, exponential backoff with jitter on HTTP 429, 500, 502 and 503, and token and latency logging. The smoke test replied ready with 6 input tokens and 1 output token (9.64 s in this run).
+Part 2: implemented softmax_T and top_p_filter by hand. On logits [5, 3, 1] the results matched the lab values (T = 1: 0.867 / 0.117 / 0.016; T = 2 with top-p 0.9: 0.731 / 0.269 / 0). On the real model, T = 0 gave 1 distinct chai-shop name in 5 samples and T = 1 gave 4.
+Part 4: wrote prompt v1 (one line) and prompt v2 (role, facts F1 to F9, rules, <question> tags, canary CANARY-7F3A, fixed JSON format), a Pydantic Reply model, and ask_json() with one repair attempt. The quick test on the proposal deadline returned F1 as the source, with high confidence and in_scope true.
 
 ### Maaz
-*(add your answers)*
+Evaluation set: 24 frozen questions with the phrases a correct answer must contain and the expected in_scope value: 12 typical, 5 edge cases, 2 that the facts cannot answer, 3 out of scope and 2 adversarial.
+Scoring: score() records valid_json, facts_ok (all required phrases appear in the answer, only for the 20 questions that have them), scope_ok (the in_scope flag matches) and cites (the reply lists at least one source).
+Run: v1 and v2 were both run at T = 0 on all 24 questions, with one automatic retry after an HTTP 503. Results: v1 valid JSON 0.00, facts 0.50, cites 0.00 (scope not measurable); v2 valid JSON 1.00, facts 1.00, scope 0.92, cites 0.90.
+Interval: the normal-approximation formula printed 1.00 ± 0.00 for v2 facts over 20 questions. This zero width is an artifact at exactly 100%, and the Wilson 95% interval is about 0.84 to 1.00.
 
 ### Ateeq
 
